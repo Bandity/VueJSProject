@@ -1,8 +1,9 @@
 <template>
   <div>
-    <PersoSelector :team="team" :currentPlayer="this.currentPlayer" />
+    <PersoSelector :team="team" @update:selectPlayer="playerSelect">
+      <h1 slot-scope="{ player }">From Team : {{ player }}</h1>
+    </PersoSelector>
     <Perso />
-    {{this.currentPlayer}}
   </div>
 </template>
 
@@ -18,18 +19,18 @@ export default {
   },
   data: () => {
     return {
-      currentTowns: towns,
-      team,
-      currentPlayer:"",
+      currentTowns: towns, // la ville courante
+      team: team,
+      currentPlayer: "",
     };
   },
   computed: {},
   methods: {
-    selectPlayer(event) {
-      let id = event.target.value;
-      this.currentPlayer = this.$props.team[id].name
-    }
-  }
+    playerSelect(value) {
+      let id = value.target.value;
+      this.currentPlayer = this.team[id];
+    },
+  },
 };
 </script>
 
