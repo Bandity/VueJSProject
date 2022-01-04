@@ -10,10 +10,24 @@
 
 <script>
 export default {
-    name: 'PersoSelector'
-}
+  name: "PersoSelector",
+  props: {
+    team: Array,
+    currentPlayer: String
+  },
+  data: () => {
+    return {
+    };
+  },
+  computed: {},
+  methods: {
+    selectPlayer(event) {
+      let id = event.target.value;
+      this.$props.currentPlayer = this.$props.team[id].name
+    }
+  },
+};
 </script>
 
 <style>
-
 </style>

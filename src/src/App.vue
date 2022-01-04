@@ -1,19 +1,19 @@
 <template>
   <div>
-    <Team/>
-    <World/>
+    <Team />
+    <World />
   </div>
 </template>
 
 <script>
 import Team from "./components/Team/Team.vue";
-import World from "./components/World/World.vue"
+import World from "./components/World/World.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Team,
-    World
-  }
-}
+    World,
+  },
+};
 </script>
