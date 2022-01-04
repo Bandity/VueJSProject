@@ -1,5 +1,11 @@
 <template>
-  <div></div>
+  <div>
+    <select @change="selectPlayer($event)">
+      <option v-for="(el, i) in team" :key="i" :value="i">
+        {{ el.name }}
+      </option>
+    </select>
+  </div>
 </template>
 
 <script>
