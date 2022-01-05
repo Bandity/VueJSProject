@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="Team-Container">
     <PersoSelector :team="team" @update:selectPlayer="playerSelect">
       <h1 slot-scope="{ player }">From Team : {{ player }}</h1>
     </PersoSelector>
@@ -10,7 +10,7 @@
 <script>
 import PersoSelector from "./PersoSelector.vue";
 import Perso from "./Perso.vue";
-import { towns, team } from "../../model/model";
+import { team } from "../../model/model";
 export default {
   name: "Team",
   components: {
@@ -19,7 +19,6 @@ export default {
   },
   data: () => {
     return {
-      currentTowns: towns, // la ville courante
       team: team,
       currentPlayer: null,
     };
@@ -35,7 +34,7 @@ export default {
 </script>
 
 <style>
-template {
+#Team-Container {
   display: flex;
   flex: 8;
 }

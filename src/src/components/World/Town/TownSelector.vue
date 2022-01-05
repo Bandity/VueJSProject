@@ -1,9 +1,9 @@
 <template>
   <div>
-    <select @change="eventPlayerEmmiter($event)">
-      <option value="null" disabled selected="selected">Please Select a Player</option>
-      <option v-for="(el, i) in team" :key="i" :value="i">
-        {{ el.name }}
+    <select @change="eventTownEmmiter($event)">
+      <option value="null" disabled selected="selected">Please Select a Town</option>
+      <option v-for="(el, i) in townNames" :key="i" :value="i">
+        {{ el }}
       </option>
     </select>
   </div>
@@ -11,9 +11,9 @@
 
 <script>
 export default {
-  name: "PersoSelector",
+  name: "TownSelector",
   props: {
-    team: Array,
+    townNames: Array,
   },
   data: () => {
     return {
@@ -21,8 +21,8 @@ export default {
   },
   computed: {},
   methods: {
-    eventPlayerEmmiter(event) {
-      this.$emit("update:selectPlayer",event);
+    eventTownEmmiter(event) {
+      this.$emit("update:selectedTown",event);
     }
   },
 };
