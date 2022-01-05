@@ -1,11 +1,24 @@
 <template>
-  <div>
-    <select @change="eventPlayerEmmiter($event)">
-      <option value="null" disabled selected="selected">Please Select a Player</option>
-      <option v-for="(el, i) in team" :key="i" :value="i">
-        {{ el.name }}
-      </option>
-    </select>
+  <div style="display: flex" v-if="currentShop != null">
+    <slot :shopName="shopName"></slot>
+    <div style="width: 50%">
+      <h4>In stock</h4>
+      <ol>
+        <li v-for="(item, i) in currentShop.itemStock" :key="i">
+          {{ item.name }}
+          {{ item.price }} $
+        </li>
+      </ol>
+    </div>
+    <div style="width: 50%">
+      <h4>To order</h4>
+      <ol>
+        <li v-for="(item, i) in currentShop.itemOrder" :key="i">
+          {{ item.name }}
+          {{ item.price }} $
+        </li>
+      </ol>
+    </div>
   </div>
 </template>
 
@@ -13,17 +26,17 @@
 export default {
   name: "Shop",
   props: {
-    team: Array,
+    currentShop: Object,
   },
   data: () => {
     return {
+      shopName: ""
     };
   },
-  computed: {},
   methods: {
     eventPlayerEmmiter(event) {
-      this.$emit("update:selectPlayer",event);
-    }
+      this.$emit("update:selectPlayer", event);
+    },
   },
 };
 </script>

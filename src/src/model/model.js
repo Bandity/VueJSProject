@@ -327,6 +327,10 @@ let street7 = new Street("Desert Sahara")
 
 /* ---- Shop asignmentto the streets ---- */
     //Town 1 -> Shops
+street1.addShop(shop1);
+street1.addShop(shop2);
+street1.addShop(shop3);
+
 street2.addShop(shop4);
 street2.addShop(shop5);
 street2.addShop(shop6);
@@ -335,9 +339,7 @@ street3.addShop(shop7);
 street3.addShop(shop8);
 street3.addShop(shop9);
 
-street1.addShop(shop1);
-street1.addShop(shop2);
-street1.addShop(shop3);
+
 
     //Town 2 -> Shops
 street4.addShop(shop10);

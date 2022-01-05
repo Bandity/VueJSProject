@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <select @change="eventTownEmmiter($event)">
+  <div v-if="townsNames.length > 0 ">
+    <select @change="eventTownSelectorEmmiter($event)">
       <option value="null" disabled selected="selected">Please Select a Town</option>
-      <option v-for="(el, i) in townNames" :key="i" :value="i">
+      <option v-for="(el, i) in townsNames" :key="i" :value="i">
         {{ el }}
       </option>
     </select>
@@ -13,7 +13,7 @@
 export default {
   name: "TownSelector",
   props: {
-    townNames: Array,
+    townsNames: Array,
   },
   data: () => {
     return {
@@ -21,7 +21,7 @@ export default {
   },
   computed: {},
   methods: {
-    eventTownEmmiter(event) {
+    eventTownSelectorEmmiter(event) {
       this.$emit("update:selectedTown",event);
     }
   },

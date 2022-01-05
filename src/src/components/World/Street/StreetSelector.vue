@@ -1,6 +1,6 @@
 <template>
   <div v-if="townName !== null">
-    <select @change="eventStreetEmmiter($event)">
+    <select @change="eventStreetSelectorEmmiter($event)">
       <option value="null" disabled selected="selected">Please Select a Street</option>
       <option v-for="(el, i) in streets" :key="i" :value="i">
         {{ el }}
@@ -24,8 +24,8 @@ export default {
   mounted:()=> {
   },
   methods: {
-    eventStreetEmmiter(event) {
-      this.$emit("update:streets",event);
+    eventStreetSelectorEmmiter(event) {
+      this.$emit("update:selectedShop",event);
     }
   },
 };

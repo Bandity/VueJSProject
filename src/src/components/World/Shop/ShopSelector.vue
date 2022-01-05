@@ -1,9 +1,9 @@
 <template>
-  <div v-if="(streetName !== null)">
-    <select @change="eventPlayerEmmiter($event)">
-      <option value="null" disabled selected="selected">Please Select a Player</option>
-      <option v-for="(el, i) in team" :key="i" :value="i">
-        {{ el.name }}
+  <div v-if="streetName !== null">
+    <select @change="eventShopSelectorEmmiter($event)">
+      <option value="null" disabled selected="selected">Please Select a Shop</option>
+      <option v-for="(el, i) in shops " :key="i" :value="i">
+        {{ el }}
       </option>
     </select>
   </div>
@@ -22,8 +22,8 @@ export default {
   },
   computed: {},
   methods: {
-    eventPlayerEmmiter(event) {
-      this.$emit("update:selectPlayer",event);
+    eventShopSelectorEmmiter(event) {
+      this.$emit("update:selectedShop",event);
     }
   },
 };
