@@ -1,8 +1,8 @@
 <template>
   <div v-if="currentPlayer !== null" >
-    <p>{{ currentPlayer.name }}</p>
-    <p>{{ currentPlayer.level }}</p>
-    <p>{{ currentPlayer.life }}</p>
+    <p>Name : {{ currentPlayer.name }}</p>
+    <p>Level : {{ currentPlayer.level }}</p>
+    <p>Life : {{ currentPlayer.life }}</p>
   </div>
 </template>
 
