@@ -3,7 +3,7 @@
     <PersoSelector :team="team" @update:selectPlayer="playerSelect">
       <h1 slot-scope="{ player }">From Team : {{ player }}</h1>
     </PersoSelector>
-    <Perso />
+    <Perso :currentPlayer="currentPlayer"></Perso>
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
     return {
       currentTowns: towns, // la ville courante
       team: team,
-      currentPlayer: "",
+      currentPlayer: null,
     };
   },
   computed: {},
