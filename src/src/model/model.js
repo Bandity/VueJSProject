@@ -368,6 +368,10 @@ town.addStreet(street3);
     //Town 2
 town2.addStreet(street4);
 town2.addStreet(street5);
+town2.addStreet(street6);
+
+    //Town 3
+town3.addStreet(street7);
 /* ---------------------------------------- */ 
 
 /* ------------ Vars to export ------------ */ 

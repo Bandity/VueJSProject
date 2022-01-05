@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table border="1">
+    <table border="1"  v-if="currentPlayer !== null">
       <tr v-for="(el, i) in currentPlayer.slots" :key="i">
         <td>{{ el.name }}</td>
         <td v-for="(item, index) in el.items" :key="index">
@@ -8,7 +8,9 @@
         </td>
       </tr>
     </table>
+    <div  v-if="currentPlayer !=null">
     <input readonly="readonly" :value="boughtItems" /><br />
+    </div>
   </div>
 </template>
 
@@ -19,7 +21,9 @@ export default {
     currentPlayer: Object,
   },
   data: () => {
-    return {};
+    return {
+      boughtItems:0
+    };
   },
 };
 </script>

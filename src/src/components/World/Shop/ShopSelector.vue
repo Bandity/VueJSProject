@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="(streetName !== null)">
     <select @change="eventPlayerEmmiter($event)">
       <option value="null" disabled selected="selected">Please Select a Player</option>
       <option v-for="(el, i) in team" :key="i" :value="i">
@@ -13,7 +13,8 @@
 export default {
   name: "ShopSelector",
   props: {
-    team: Array,
+    shops: Array,
+    streetName: String
   },
   data: () => {
     return {

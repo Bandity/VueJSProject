@@ -1,9 +1,9 @@
 <template>
   <div id="World-Container">
     <TownSelector :townNames="[towns[0].name, towns[1].name, towns[2].name]" @update:selectedTown="selectedTown" />
-    <StreetSelector  />
+    <StreetSelector  :streets="streets" :townName="townName" @update:selectedStreet="selectedStreet" />
     <Shop />
-    <ShopSelector />
+    <ShopSelector :shops="shops" :streetName="streetName" @update:selectedShop="selectedShop" />
   </div>
 </template>
 
@@ -26,13 +26,33 @@ export default {
       currentTown: null,
       currentStreet: null,
       currentShop: null,
-      towns
+      townName : null,
+      streetName : null,
+      towns,
+      streets:[],
+      shops:[]
     };
   },
   methods: {
     selectedTown(event) {
       let id = event.target.value;
       this.currentTown = towns[id];
+      this.townName = this.currentTown.name;
+      for(let i = 0; i < this.currentTown.streets.length; i++){
+        this.streets[i] = this.currentTown.streets[i].name;
+      }
+    },
+    selectedStreet(event){
+      let id = event.target.value;
+      this.currentStreet = this.streets[id];
+      for(let i = 0; i < this.currentStreet.shops.length; i++){
+        this.shops[i] = this.currentStreet.shops[i].name;
+      }
+    },
+    selectedShop(event){
+      let id = event.target.value;
+      this.currentShop = this.shops[id];
+      
     }
   }
 };
