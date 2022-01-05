@@ -35,4 +35,9 @@ export default {
 </script>
 
 <style>
+template {
+  display: flex;
+  flex: 8;
+}
+  
 </style>

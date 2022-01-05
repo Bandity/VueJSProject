@@ -8,9 +8,7 @@
         </td>
       </tr>
     </table>
-    <div style="height: 20px"></div>
-      <input readonly="readonly" :value="boughtItems" /><br />
-    <div>  
+    <input readonly="readonly" :value="boughtItems" /><br />
   </div>
 </template>
 

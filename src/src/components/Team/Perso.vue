@@ -28,10 +28,7 @@ export default {
   },
   computed: {},
   methods: {
-    selectPlayer(event) {
-
-      this.$emit("update:selectPlayer",event);
-    }
+    
   },
 }
 </script>
