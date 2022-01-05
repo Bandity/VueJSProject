@@ -13,7 +13,9 @@ export default {
     currentPlayer: Object
   },
   data:() =>{
-
+    return{
+      
+    };
   }
 };
 </script>
