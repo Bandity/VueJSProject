@@ -1,8 +1,8 @@
 <template>
   <div>
     <PersoCaracs :currentPlayer="currentPlayer"/>
-    <PersoOps/>
-    <PersoSlots/>
+    <PersoOps :currentPlayer="currentPlayer"/>
+    <PersoSlots :currentPlayer="currentPlayer"/>
   </div>
 </template>
 

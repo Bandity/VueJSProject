@@ -226,7 +226,7 @@ class Perso {
         this.slots.push(new Slot(3, 'hands'))
         this.slots.push(new Slot(4, 'belt'))
         this.slots.push(new Slot(5, 'bag'))
-        this.boughtItems = []; // list of item bought but not yet assigned
+        this.boughtItems = [items[1]]; // list of item bought but not yet assigned
 
         this.vitality = this.level * 50
         this.life = this.vitality

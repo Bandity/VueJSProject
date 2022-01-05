@@ -1,8 +1,14 @@
 <template>
   <div v-if="currentPlayer !== null" >
-    <p>Name : {{ currentPlayer.name }}</p>
-    <p>Level : {{ currentPlayer.level }}</p>
-    <p>Life : {{ currentPlayer.life }}</p>
+    <span>Name : {{ currentPlayer.name }} </span>
+    <span>Level : {{ currentPlayer.level }} </span>
+    <span>Life : {{ currentPlayer.life }} </span>
+    <span>Armor : {{ currentPlayer.armor}} </span>
+    <span>Vitality : {{ currentPlayer.vitality }} </span>
+    <span>Strength : {{ currentPlayer.strength }} </span>
+    <div>
+      <input readonly="readonly" :value="currentPlayer.gold" /><br />
+    </div>
   </div>
 </template>
 
