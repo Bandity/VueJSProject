@@ -1,11 +1,20 @@
 <template>
-  <div v-if="townName !== null">
-    <select @change="eventStreetSelectorEmmiter($event)">
-      <option value="null" disabled selected="selected">Please Select a Street</option>
-      <option v-for="(el, i) in streets" :key="i" :value="i">
-        {{ el }}
-      </option>
-    </select>
+  <div v-if="townName !== null" style="width: 50%">
+        <div style="display: flex">
+      <div style="width: 50%">
+        <div v-for="(el, i) in streets" :key="i">
+          <input
+            type="radio"
+            :value="i"
+            name="streets"
+            @click="eventStreetSelectorEmmiter($event)"
+          />
+          <label>{{ el }}</label
+          ><br />
+        </div>
+        <!-- EXO 2.1 : liste à puce des rues pour sélectionner la rue courante -->
+      </div>
+  </div>
   </div>
 </template>
 

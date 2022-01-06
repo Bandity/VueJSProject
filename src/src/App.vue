@@ -1,7 +1,13 @@
 <template>
   <div>
+    <div style="display: flex">
+      <div style="flex: 7 7">
     <Team />
+      </div>
+    <div style="flex: 8 8">
     <World />
+    </div>
+    </div>
   </div>
 </template>
 

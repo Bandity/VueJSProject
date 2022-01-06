@@ -1,27 +1,27 @@
 <template>
-  <div>
+  <div style="flex-direction: column; display: flex; flex: 8 auto; ">
     <div>
       <label for="items_to__buy">Number of items to buy: </label>
       <input id="items_to_buy" type="text" v-model="idxItemBuy" />
-      <button @click="buy">Buy</button>
+      <button @click="buy">Buy</button><br /><br />
     </div>
     <div>
-      <label for="boughtItem">bought number</label>
-      <input type="number" id="boughtItem" v-model="idxItemBought" /><br />
-      <label>slot number</label>
+      <label for="boughtItem">bought number</label> 
+      <input type="number" id="boughtItem" v-model="idxItemBought" /><br /><br />
+      <label>slot number</label> 
       <input type="number" v-model="idxSlotAssign" />
-      <button @click="assign">Assign</button>
+      <button @click="assign">Assign</button><br /><br />
     </div>
     <div>
-      <label>Objects to order</label>
+      <label>Objects to order</label> 
       <input type="text" v-model="idxItemOrder" />
-      <button @click="order()">Order</button>
+      <button @click="order()">Order</button><br /><br />
     </div>
 
     <div>
-      <label>Objects to sell</label>
-      <input type="text" value="1" v-model="idxItemSell" />
-      <label>Slot to sell </label>
+      <label>Objects to sell</label> 
+      <input type="text" value="1" v-model="idxItemSell" /><br /><br />
+      <label>Slot to sell </label> 
       <input type="text" value="1" v-model="idxSlotSell" />
       <button @click="sell()">Sell</button>
     </div>
@@ -102,4 +102,5 @@ export default {
 </script>
 
 <style>
+
 </style>

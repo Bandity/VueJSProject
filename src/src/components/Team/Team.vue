@@ -1,5 +1,6 @@
 <template>
-  <div id="Team-Container">
+  <div >
+
     <PersoSelector :team="team" @update:selectPlayer="playerSelect">
       <h1 slot-scope="{ player }">From Team : {{ player }}</h1>
     </PersoSelector>
@@ -34,9 +35,5 @@ export default {
 </script>
 
 <style>
-#Team-Container {
-  display: flex;
-  flex: 8;
-}
   
 </style>

@@ -1,11 +1,18 @@
 <template>
   <div v-if="streetName !== null">
-    <select @change="eventShopSelectorEmmiter($event)">
-      <option value="null" disabled selected="selected">Please Select a Shop</option>
-      <option v-for="(el, i) in shops " :key="i" :value="i">
-        {{ el }}
-      </option>
-    </select>
+    <div
+      v-for="(el, i) in shops"
+      :key="i"
+    >
+      <input
+        type="radio"
+        :value="i"
+        name="shops"
+        @change="eventShopSelectorEmmiter($event)"
+      />
+      <label>{{ el }}</label
+      ><br />
+    </div>
   </div>
 </template>
 
@@ -14,17 +21,16 @@ export default {
   name: "ShopSelector",
   props: {
     shops: Array,
-    streetName: String
+    streetName: String,
   },
   data: () => {
-    return {
-    };
+    return {};
   },
   computed: {},
   methods: {
     eventShopSelectorEmmiter(event) {
-      this.$emit("update:selectedShop",event);
-    }
+      this.$emit("update:selectedShop", event);
+    },
   },
 };
 </script>

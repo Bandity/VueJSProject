@@ -1,11 +1,16 @@
 <template>
-  <div id="World-Container">
+  <div >
+    <br/>
     <TownSelector :townsNames="townsNames" @update:selectedTown="selectedTown" />
+    <br/>
     <StreetSelector  :streets="streets" :townName="townName" @update:selectedShop="selectedStreet" />
+    <br/>
     <ShopSelector :shops="shops" :streetName="streetName" @update:selectedShop="selectedShop" />
+    <br/>
     <Shop :currentShop="currentShop">
       <h1 slot-scope="{ shopName }">{{ shopName }}</h1>
     </Shop>
+    <br/>
   </div>
 </template>
 
@@ -75,9 +80,4 @@ export default {
 </script>
 
 <style>
-#World-Container {
-  display: flex;
-  flex-direction: column;
-  flex: 7;
-}
 </style>
