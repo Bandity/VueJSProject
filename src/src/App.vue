@@ -2,10 +2,10 @@
   <div>
     <div style="display: flex">
       <div style="flex: 7 7">
-    <Team />
+    <Team :currentShop="currentShop"/>
       </div>
     <div style="flex: 8 8">
-    <World />
+    <World  @update:shop="shopUsed"/>
     </div>
     </div>
   </div>
@@ -21,5 +21,18 @@ export default {
     Team,
     World,
   },
+  data: () => {
+    return {
+      currentShop: null,
+      currentTown : null,
+      currentPerso: null,
+      currentStreet: null,
+    }
+  },
+  methods: {
+    shopUsed(event){
+      this.currentShop = event;
+    }
+  }
 };
 </script>

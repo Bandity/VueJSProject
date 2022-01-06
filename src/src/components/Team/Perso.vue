@@ -1,8 +1,8 @@
 <template>
   <div>
     <PersoCaracs :currentPlayer="currentPlayer"/>
-    <PersoOps :currentPlayer="currentPlayer"/>
     <PersoSlots :currentPlayer="currentPlayer"/>
+     <PersoOps :currentPlayer="currentPlayer" :currentShop="currentShop"/>
   </div>
 </template>
 
@@ -21,6 +21,7 @@ export default {
   },
   props: {
     currentPlayer: Object,
+    currentShop: Object
   },
   data: () => {
     return {

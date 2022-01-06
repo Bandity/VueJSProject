@@ -8,7 +8,7 @@
     <ShopSelector :shops="shops" :streetName="streetName" @update:selectedShop="selectedShop" />
     <br/>
     <Shop :currentShop="currentShop">
-      <h1 slot-scope="{ shopName }">{{ shopName }}</h1>
+      <h1 slot-scope="{ shopName }" style="display: flex; align-items: center; justify-content: center;">{{ shopName }}</h1>
     </Shop>
     <br/>
   </div>
@@ -71,9 +71,9 @@ export default {
     },
     selectedShop(event){
       let id = event.target.value;
-      console.log(id)
       this.currentShop = this.currentStreet.shops[id];
       this.shopName = this.currentShop.name;
+      this.$emit("update:shop", this.currentShop);
     },
   }
 };

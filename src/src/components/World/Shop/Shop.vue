@@ -1,23 +1,25 @@
 <template>
-  <div style="display: flex" v-if="currentShop != null">
-    <slot :shopName="shopName"></slot>
-    <div style="width: 50%">
-      <h4>In stock</h4>
-      <ol>
-        <li v-for="(item, i) in currentShop.itemStock" :key="i">
-          {{ item.name }}
-          {{ item.price }} $
-        </li>
-      </ol>
-    </div>
-    <div style="width: 50%">
-      <h4>To order</h4>
-      <ol>
-        <li v-for="(item, i) in currentShop.itemOrder" :key="i">
-          {{ item.name }}
-          {{ item.price }} $
-        </li>
-      </ol>
+  <div>
+    <slot :shopName="currentShop.name"></slot>
+    <div id="list_store" v-if="currentShop != null">
+      <div style="width: 50%">
+        <h4>In stock</h4>
+        <ol>
+          <li v-for="(item, i) in currentShop.itemStock" :key="i">
+            {{ item.name }}
+            {{ item.price }} $
+          </li>
+        </ol>
+      </div>
+      <div>
+        <h4>To order</h4>
+        <ol>
+          <li v-for="(item, i) in currentShop.itemOrder" :key="i">
+            {{ item.name }}
+            {{ item.price }} $
+          </li>
+        </ol>
+      </div>
     </div>
   </div>
 </template>
@@ -30,7 +32,7 @@ export default {
   },
   data: () => {
     return {
-      shopName: ""
+      shopName: "",
     };
   },
   methods: {
@@ -41,5 +43,17 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+#list_store {
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  background: #a29f9f;
+  border: 1px solid;
+  border-radius: 60px;
+  padding: 40px;
+}
+ol {
+  list-style-type: none;
+}
 </style>

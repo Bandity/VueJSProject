@@ -1,4 +1,5 @@
-<template>
+<template >
+<div v-if="currentPlayer !== null && currentShop !== null">
   <div style="flex-direction: column; display: flex; flex: 8 auto; ">
     <div>
       <label for="items_to__buy">Number of items to buy: </label>
@@ -26,13 +27,16 @@
       <button @click="sell()">Sell</button>
     </div>
   </div>
+</div>
 </template>
 
 <script>
+import {itemLimits} from "./../../../model/model"
 export default {
   name: "PersoOps",
   props: {
     currentPlayer: Object,
+    currentShop: Object
   },
   data: () => {
     return {
@@ -42,22 +46,26 @@ export default {
       idxSlotAssign: 1, // la valeur du champ de saisie "index slot" pour assigner un item
       idxItemSell: 1, // la valeur du champ de saisie "index item" pour vendre un item
       idxSlotSell: 1, // la valeur du champ de saisie "index slot" pour vendre un item
+      itemLimits,
     };
+  },
+  mounted (){
+    console.log(this.$props)
   },
   methods: {
     assign() {
-      let item = this.$props.currentPlayer.boughtItems[this.idxItemBought];
+      let item = this.currentPlayer.boughtItems[this.idxItemBought-1];
       // find which limits corresponds to the target slot
       let lim = this.itemLimits.find(
-        (e) => e.slot === this.currentPlayer.slots[this.idxSlotAssign].name
+        (e) => e.slot === this.currentPlayer.slots[this.idxSlotAssign-1].name
       );
       // check if item number is already reached
       if (
-        this.currentPlayer.slots[this.idxSlotAssign].items.length === lim.limit
+        this.currentPlayer.slots[this.idxSlotAssign-1].items.length === lim.limit
       )
         return (
           "slot " +
-          this.currentPlayer.slots[this.idxSlotAssign].name +
+          this.currentPlayer.slots[this.idxSlotAssign-1].name +
           " is full"
         );
       // check if item type is allowed
@@ -66,36 +74,36 @@ export default {
           "wrong item type [" +
           item.type +
           "] for slot " +
-          this.currentPlayer.slots[this.idxSlotAssign].name
+          this.currentPlayer.slots[this.idxSlotAssign-1].name
         );
       this.currentPlayer.boughtItems.splice(this.idxItemBought, 1);
-      this.currentPlayer.slots[this.idxSlotAssign].items.push(item);
+      this.currentPlayer.slots[this.idxSlotAssign-1].items.push(item);
       return "";
     },
     buy() {
       if (
-        this.currentShop.itemStock[this.idxItemBuy].price >
+          this.currentShop.itemStock[this.idxItemBuy-1].price >
         this.currentPlayer.gold
       )
         return "not enough gold";
       this.currentPlayer.boughtItems.push(
-        this.currentShop.itemStock[this.idxItemBuy]
+          this.currentShop.itemStock[this.idxItemBuy-1]
       );
       this.currentPlayer.gold -=
-        this.currentShop.itemStock[this.idxItemBuy].price;
+          this.currentShop.itemStock[this.idxItemBuy-1].price;
       return "";
     },
     async order() {
-      await this.currentShop.itemStock.push(
-        this.currentShop.itemOrder[this.idxItemOrder]
+      await  this.currentShop.itemStock.push(
+          this.currentShop.itemOrder[this.idxItemOrder-1]
       );
     },
     sell() {
-      this.currentPlayer.slots[this.idxSlotSell].items.splice(
+      this.currentPlayer.slots[this.idxSlotSell-1].items.splice(
         this.idxItemSell,
         1
       );
-      this.gold += this.idxItemSell.price;
+      this.currentPlayer.gold += this.idxItemSell.price;
     },
   },
 };

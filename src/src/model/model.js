@@ -390,4 +390,4 @@ var team = [
 ];
 /* --------------------------------------- */ 
 
-export { towns, team }
+export { towns, team, itemLimits }

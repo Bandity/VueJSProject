@@ -1,10 +1,7 @@
 <template>
   <div >
-
-    <PersoSelector :team="team" @update:selectPlayer="playerSelect">
-      <h1 slot-scope="{ player }">From Team : {{ player }}</h1>
-    </PersoSelector>
-    <Perso :currentPlayer="currentPlayer"></Perso>
+    <PersoSelector :team="team" @update:selectPlayer="playerSelect"/>
+    <Perso :currentPlayer="currentPlayer" :currentShop="currentShop"/>
   </div>
 </template>
 
@@ -17,6 +14,9 @@ export default {
   components: {
     PersoSelector,
     Perso,
+  },
+  props: {
+    currentShop : Object,
   },
   data: () => {
     return {
