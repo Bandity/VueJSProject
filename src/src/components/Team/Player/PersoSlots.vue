@@ -34,10 +34,6 @@ export default {
       for (let i = 0; i < this.currentPlayer.boughtItems.length; i++) {
         txt += "[ "+(i+1)+" ] - " + this.currentPlayer.boughtItems[i].name;
       }
-      /* EXO 4.4
-         - construire txt le nom des items achetés+index
-      */
-      console.log(txt);
       return txt;
     },
   }
