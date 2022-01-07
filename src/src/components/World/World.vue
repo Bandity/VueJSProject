@@ -60,6 +60,7 @@ export default {
       for(let i = 0; i < this.currentTown.streets.length; i++){
         this.streets[i] = this.currentTown.streets[i].name;
       }
+      
     },
     selectedStreet(event){
       let id = event.target.value;
@@ -68,6 +69,7 @@ export default {
       for(let i = 0; i < this.currentStreet.shops.length; i++){
         this.shops[i] = this.currentStreet.shops[i].name;
       }
+      console.log(this.currentStreet);
     },
     selectedShop(event){
       let id = event.target.value;

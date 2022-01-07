@@ -221,12 +221,12 @@ class Perso {
         this.name = name;
         this.level = level;
         this.slots = [];
-        this.slots.push(new Slot(1, 'head', [items[0]]))
+        this.slots.push(new Slot(1, 'head'))
         this.slots.push(new Slot(2, 'body'))
         this.slots.push(new Slot(3, 'hands'))
         this.slots.push(new Slot(4, 'belt'))
         this.slots.push(new Slot(5, 'bag'))
-        this.boughtItems = [items[1]]; // list of item bought but not yet assigned
+        this.boughtItems = []; // list of item bought but not yet assigned
 
         this.vitality = this.level * 50
         this.life = this.vitality

@@ -1,42 +1,46 @@
 <template >
-<div v-if="currentPlayer !== null && currentShop !== null">
-  <div style="flex-direction: column; display: flex; flex: 8 auto; ">
-    <div>
-      <label for="items_to__buy">Number of items to buy: </label>
-      <input id="items_to_buy" type="text" v-model="idxItemBuy" />
-      <button @click="buy">Buy</button><br /><br />
-    </div>
-    <div>
-      <label for="boughtItem">bought number</label> 
-      <input type="number" id="boughtItem" v-model="idxItemBought" /><br /><br />
-      <label>slot number</label> 
-      <input type="number" v-model="idxSlotAssign" />
-      <button @click="assign">Assign</button><br /><br />
-    </div>
-    <div>
-      <label>Objects to order</label> 
-      <input type="text" v-model="idxItemOrder" />
-      <button @click="order()">Order</button><br /><br />
-    </div>
+  <div v-if="currentPlayer !== null">
+    <div style="flex-direction: column; display: flex; flex: 8 auto">
+      <div>
+        <label for="boughtItem">Item to assign: </label>
+        <input type="number" id="boughtItem" v-model="idxItemBought" />
+        <label>Slot number to assign the item to: </label>
+        <input type="number" v-model="idxSlotAssign" /><br />
+        <button @click="assign" class="btn">Assign Item</button><br /><br />
+      </div>
+      <div v-if="currentShop !== null">
+        <div>
+          <label for="items_to__buy">Number of item you want to buy: </label>
+          <input id="items_to_buy" type="text" v-model="idxItemBuy" />
+          <button @click="buy">Buy</button><br /><br />
+        </div>
+        <div>
+          <label>Object to order: </label>
+          <input type="text" v-model="idxItemOrder" />
+          <button @click="order()">Order</button><br /><br />
+        </div>
 
-    <div>
-      <label>Objects to sell</label> 
-      <input type="text" value="1" v-model="idxItemSell" /><br /><br />
-      <label>Slot to sell </label> 
-      <input type="text" value="1" v-model="idxSlotSell" />
-      <button @click="sell()">Sell</button>
+        <div>
+          <label>Object to sell: </label>
+          <input type="text" value="1" v-model="idxItemSell" /><br /><br />
+        </div>
+        <div>
+          <label>Slot to sell: </label>
+          <input type="text" value="1" v-model="idxSlotSell" />
+          <button @click="sell()">Sell</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
-import {itemLimits} from "./../../../model/model"
+import { itemLimits } from "./../../../model/model";
 export default {
   name: "PersoOps",
   props: {
     currentPlayer: Object,
-    currentShop: Object
+    currentShop: Object,
   },
   data: () => {
     return {
@@ -49,23 +53,24 @@ export default {
       itemLimits,
     };
   },
-  mounted (){
-    console.log(this.$props)
+  mounted() {
+    console.log(this.$props);
   },
   methods: {
     assign() {
-      let item = this.currentPlayer.boughtItems[this.idxItemBought-1];
+      let item = this.currentPlayer.boughtItems[this.idxItemBought - 1];
       // find which limits corresponds to the target slot
       let lim = this.itemLimits.find(
-        (e) => e.slot === this.currentPlayer.slots[this.idxSlotAssign-1].name
+        (e) => e.slot === this.currentPlayer.slots[this.idxSlotAssign - 1].name
       );
       // check if item number is already reached
       if (
-        this.currentPlayer.slots[this.idxSlotAssign-1].items.length === lim.limit
+        this.currentPlayer.slots[this.idxSlotAssign - 1].items.length ===
+        lim.limit
       )
         return (
           "slot " +
-          this.currentPlayer.slots[this.idxSlotAssign-1].name +
+          this.currentPlayer.slots[this.idxSlotAssign - 1].name +
           " is full"
         );
       // check if item type is allowed
@@ -74,32 +79,32 @@ export default {
           "wrong item type [" +
           item.type +
           "] for slot " +
-          this.currentPlayer.slots[this.idxSlotAssign-1].name
+          this.currentPlayer.slots[this.idxSlotAssign - 1].name
         );
       this.currentPlayer.boughtItems.splice(this.idxItemBought, 1);
-      this.currentPlayer.slots[this.idxSlotAssign-1].items.push(item);
+      this.currentPlayer.slots[this.idxSlotAssign - 1].items.push(item);
       return "";
     },
     buy() {
       if (
-          this.currentShop.itemStock[this.idxItemBuy-1].price >
+        this.currentShop.itemStock[this.idxItemBuy - 1].price >
         this.currentPlayer.gold
       )
         return "not enough gold";
       this.currentPlayer.boughtItems.push(
-          this.currentShop.itemStock[this.idxItemBuy-1]
+        this.currentShop.itemStock[this.idxItemBuy - 1]
       );
       this.currentPlayer.gold -=
-          this.currentShop.itemStock[this.idxItemBuy-1].price;
+        this.currentShop.itemStock[this.idxItemBuy - 1].price;
       return "";
     },
     async order() {
-      await  this.currentShop.itemStock.push(
-          this.currentShop.itemOrder[this.idxItemOrder-1]
+      await this.currentShop.itemStock.push(
+        this.currentShop.itemOrder[this.idxItemOrder - 1]
       );
     },
     sell() {
-      this.currentPlayer.slots[this.idxSlotSell-1].items.splice(
+      this.currentPlayer.slots[this.idxSlotSell - 1].items.splice(
         this.idxItemSell,
         1
       );
@@ -109,6 +114,11 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
+.btn {
+  justify-content: center; 
+  display: flex; 
+  flex-direction: center;
+  align-items: center;
+}
 </style>

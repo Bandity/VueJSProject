@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="currentShop !== null && shopName !==null">
     <slot :shopName="currentShop.name"></slot>
     <div id="list_store" v-if="currentShop != null">
       <div style="width: 50%">
@@ -52,8 +52,5 @@ export default {
   border: 1px solid;
   border-radius: 60px;
   padding: 40px;
-}
-ol {
-  list-style-type: none;
 }
 </style>
