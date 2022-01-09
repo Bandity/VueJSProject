@@ -6,6 +6,7 @@
         {{ el }}
       </option>
     </select>
+    <slot/>
   </div>
 </template>
 

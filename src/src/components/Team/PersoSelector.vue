@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex">
+  <div style="display: flex; padding-top: 20px;">
     <div style="text-align: center; width: 20%">
     <select @change="eventPlayerEmmiter($event)">
       <option value="null" disabled selected="selected">Please Select a Player</option>

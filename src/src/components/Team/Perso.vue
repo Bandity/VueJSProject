@@ -2,7 +2,7 @@
   <div>
     <PersoCaracs :currentPlayer="currentPlayer"/>
     <PersoSlots :currentPlayer="currentPlayer"/>
-     <PersoOps :currentPlayer="currentPlayer" :currentShop="currentShop"/>
+    <PersoOps :currentPlayer="currentPlayer" :currentShop="currentShop"/>
   </div>
 </template>
 

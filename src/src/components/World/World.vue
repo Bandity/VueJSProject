@@ -1,7 +1,9 @@
 <template>
   <div >
     <br/>
-    <TownSelector :townsNames="townsNames" @update:selectedTown="selectedTown" />
+    <TownSelector :townsNames="townsNames" @update:selectedTown="selectedTown" >
+    </TownSelector>
+          <h1 v-if="this.townName !==null" style="text-align: center;">{{ this.townName }}</h1>
     <br/>
     <StreetSelector  :streets="streets" :townName="townName" @update:selectedShop="selectedStreet" />
     <br/>
@@ -69,7 +71,6 @@ export default {
       for(let i = 0; i < this.currentStreet.shops.length; i++){
         this.shops[i] = this.currentStreet.shops[i].name;
       }
-      console.log(this.currentStreet);
     },
     selectedShop(event){
       let id = event.target.value;
