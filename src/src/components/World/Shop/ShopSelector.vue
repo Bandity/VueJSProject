@@ -3,6 +3,7 @@
     <div
       v-for="(el, i) in shops"
       :key="i"
+      
     >
       <input
         type="radio"
@@ -29,7 +30,8 @@ export default {
   computed: {},
   methods: {
     eventShopSelectorEmmiter(event) {
-      this.$emit("update:selectedShop", event);
+      let id = event.target.value;
+      this.$emit("change:selectedShop", id);
     },
   },
 };

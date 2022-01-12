@@ -12,7 +12,6 @@
           <label>{{ el }}</label
           ><br />
         </div>
-        <!-- EXO 2.1 : liste à puce des rues pour sélectionner la rue courante -->
       </div>
   </div>
   </div>
@@ -34,8 +33,9 @@ export default {
   },
   methods: {
     eventStreetSelectorEmmiter(event) {
-      this.$emit("update:selectedShop",event);
-    }
+      let id = event.target.value;
+      this.$emit("change:selectedStreet",id); 
+    },
   },
 };
 </script>

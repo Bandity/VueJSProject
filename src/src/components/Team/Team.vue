@@ -1,14 +1,14 @@
 <template>
   <div >
-    <PersoSelector :team="team" @update:selectPlayer="playerSelect"/>
-    <Perso :currentPlayer="currentPlayer" :currentShop="currentShop"/>
+    <PersoSelector :team="team" @change:selectPlayer="eventPlayerEmmiter"/>
+    <Perso :currentPlayer="currentPlayer" :currentShop="currentShop" />
   </div>
 </template>
 
 <script>
 import PersoSelector from "./PersoSelector.vue";
 import Perso from "./Perso.vue";
-import { team } from "../../model/model";
+
 export default {
   name: "Team",
   components: {
@@ -16,20 +16,20 @@ export default {
     Perso,
   },
   props: {
+    currentPlayer: Object,
     currentShop : Object,
+    team: Array
   },
   data: () => {
     return {
-      team: team,
-      currentPlayer: null,
     };
   },
-  computed: {},
+  computed: {
+  },
   methods: {
-    playerSelect(value) {
-      let id = value.target.value;
-      this.currentPlayer = this.team[id];
-    },
+    eventPlayerEmmiter(playerSelected) {
+      this.$emit("change:selectPlayer",playerSelected);
+    }
   },
 };
 </script>

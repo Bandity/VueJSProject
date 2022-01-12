@@ -25,7 +25,8 @@ export default {
   computed: {},
   methods: {
     eventPlayerEmmiter(event) {
-      this.$emit("update:selectPlayer",event);
+      let id = event.target.value;
+      this.$emit("change:selectPlayer",id);
     }
   },
 };

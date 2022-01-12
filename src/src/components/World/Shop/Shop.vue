@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     eventPlayerEmmiter(event) {
-      this.$emit("update:selectPlayer", event);
+      this.$emit("change:selectPlayer", event);
     },
   },
 };
