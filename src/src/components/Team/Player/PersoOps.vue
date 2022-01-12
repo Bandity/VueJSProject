@@ -70,21 +70,24 @@
             {{ this.errororder }}
           </p>
         </div>
-
-        <div>
-          <label>Object to sell: </label>
-          <input type="text" value="1" v-model="idxItemSell" /><br /><br />
-        </div>
-        <div>
-          <label>Slot to sell: </label>
-          <input type="text" value="1" v-model="idxSlotSell" />
-          <button @click="sell()">Sell</button>
-          <p
-            v-if="this.errorsell !== null"
-            style="color: red; text-align: center; font-size: x-small"
-          >
-            {{ this.errorsell }}
-          </p>
+        <div style="display:flex;">
+          <div>
+            <label>Object to sell: </label>
+            <input type="text" value="1" v-model="idxItemSell" />
+          </div>
+          <div>
+            <label>Slot to sell: </label>
+            <input type="text" value="1" v-model="idxSlotSell" />
+            <div style="padding-top: 10px">
+            <button @click="sell()" class="btn" >Sell</button>
+            </div>
+            <p
+              v-if="this.errorsell !== null"
+              style="color: red; text-align: center; font-size: x-small"
+            >
+              {{ this.errorsell }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -123,11 +126,12 @@ export default {
     assign() {
       if (isNaN(this.idxItemBought) || isNaN(this.idxItemBought) < 0) {
         this.error =
-          "This is not a valid number id from Bought Items. Please try again";
+          "This is not a valid number or id from Bought Items. Please try again";
         return;
-      } else if (isNaN(this.idxSlotAssign) || isNaN(this.idxSlotAssign) < 0) {
+      }
+      if (isNaN(this.idxSlotAssign) || isNaN(this.idxSlotAssign) < 0) {
         this.error =
-          "This is not a valid number id from Slots Items. Please try again";
+          "This is not a valid number or id from Slots Items. Please try again";
         return;
       }
       this.error = null;
@@ -179,11 +183,19 @@ export default {
       return "";
     },
     async order() {
-            if (isNaN(this.idxItemOrder) || isNaN(this.idxItemOrder) < 0 || isNaN(this.idxItemOrder) > this.currentShop.itemOrder.length) {
+      if (
+        isNaN(this.idxItemOrder) ||
+        isNaN(this.idxItemOrder) < 0 ||
+        isNaN(this.idxItemOrder) > this.currentShop.itemOrder.length
+      ) {
         this.errororder =
-          "This is not a valid number id from item to order. Please try again";
+          "This is not a valid number or id from item to order. Please try again";
         return;
-      } 
+      }
+      if (this.currentShop.itemOrder.length === 0) {
+        this.errororder = "There's no items to order!";
+        return;
+      }
       this.errororder = null;
       await this.currentShop.itemStock.push(
         this.currentShop.itemOrder[this.idxItemOrder - 1]
@@ -193,12 +205,31 @@ export default {
     sell() {
       if (isNaN(this.idxItemSell) || isNaN(this.idxItemSell) < 0) {
         this.errorsell =
-          "This is not a valid number id from item to sell. Please try again";
+          "This is not a valid number or id from item to sell. Please try again";
         return;
-      } 
+      }
+      if (isNaN(this.idxSlotSell) || isNaN(this.idxSlotSell) < 0) {
+        this.errorsell =
+          "This is not a valid number or id from slot to sell. Please try again";
+        return;
+      }
+      if(this.currentPlayer.slots.length <= (this.idxSlotSell-1)) {
+        this.errorsell = "This is not a valid number [ " + this.idxSlotSell + " ] is out of range slot length = " + this.currentPlayer.slots.length;
+        return;
+      }
+      if(this.currentPlayer.slots[this.idxSlotSell-1].items.length <= (this.idxItemSell-1)) {
+        this.errorsell = "This is not a valid number [ " + this.idxItemSell + " ] is out of range for items the items length = " + this.currentPlayer.slots[this.idxSlotSell-1].items.length;
+        return;
+      }
       this.errorsell = null;
-      let item = this.currentPlayer.boughtItems[this.idxItemSell - 1];
-      this.currentPlayer.boughtItems.splice(this.idxItem -1,1)
+      let item =
+        this.currentPlayer.slots[this.idxSlotSell - 1].items[
+          this.idxItemSell - 1
+        ];
+      this.currentPlayer.slots[this.idxSlotSell - 1].items.splice(
+        this.idxItem - 1,
+        1
+      );
       this.currentPlayer.gold += item.price;
     },
     desassign() {
@@ -206,19 +237,23 @@ export default {
         this.errordeassing =
           "This is not a valid number id from item to desassign. Please try again";
         return;
-      } else if (
-        isNaN(this.idxSlotDeassign) ||
-        isNaN(this.idxSlotDeassign) < 0
-      ) {
+      }
+      if (isNaN(this.idxSlotDeassign) || isNaN(this.idxSlotDeassign) < 0) {
         this.errordeassing2 =
-          "This is not a valid number id from Slots Items. Please try again";
+          "This is not a valid number or id from Slots Items. Please try again";
         return;
       }
       this.errordeassing = null;
       this.errordeassing2 = null;
-      let item = this.currentPlayer.slots[this.idxSlotDeassign - 1].items[this.idxItemDesassign-1];
-      if(item !== undefined){
-        this.currentPlayer.slots[this.idxSlotDeassign - 1].items.splice(this.idxItemDesassign-1, 1);
+      let item =
+        this.currentPlayer.slots[this.idxSlotDeassign - 1].items[
+          this.idxItemDesassign - 1
+        ];
+      if (item !== undefined) {
+        this.currentPlayer.slots[this.idxSlotDeassign - 1].items.splice(
+          this.idxItemDesassign - 1,
+          1
+        );
         this.currentPlayer.boughtItems.push(item);
       }
     },

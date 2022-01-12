@@ -6,6 +6,7 @@
           <h1 v-if="this.townName !==null" style="text-align: center;">{{ this.townName }}</h1>
     <br/>
     <StreetSelector  :streets="streets" :townName="townName" @update:selectedShop="selectedStreet" />
+    <h1 v-if="this.streetName !==null" style="text-align: center;">{{ this.streetName }}</h1>
     <br/>
     <ShopSelector :shops="shops" :streetName="streetName" @update:selectedShop="selectedShop" />
     <br/>
