@@ -12,6 +12,8 @@
     <StreetSelector
       :streets="streets"
       :townName="townName"
+      :numberShops="shopsInfo"
+      :catShops="shopsNumberOfItems"
       @change:selectedStreet="eventStreetSelectorEmmiter"
     />
     <h3 v-if="this.currentStreet !== null" style="text-align: center">
@@ -21,6 +23,7 @@
     <ShopSelector
       :shops="shop"
       :streetName="streetName"
+      :shopsCats="shopCategory"
       @change:selectedShop="eventShopSelectorEmmiter"
     />
     <br />
@@ -85,6 +88,40 @@ export default {
         }
       }
       return shops;
+    },
+    shopsInfo() {
+      let info = [];
+      if (this.currentTown !== null){
+        for (let i = 0; i < this.currentTown.streets.length; i++) {
+          info.push(this.currentTown.streets[i].shops.length);
+        }
+          
+      }
+      return info;
+    },
+    shopsNumberOfItems() {
+      let numberOfItems = [];
+      if (this.currentTown !== null){
+        for (let i = 0; i < this.currentTown.streets.length; i++) {
+          let count =0;
+          for (let j = 0; j < this.currentTown.streets[i].shops.length; j++){
+            count += this.currentTown.streets[i].shops[j].itemStock.length
+          }
+          numberOfItems.push(count);
+        }
+      }
+      return numberOfItems;
+    },
+    shopCategory() {
+      let category = [];
+      if(this.currentStreet !== null){
+        for (let i = 0; i < this.currentStreet.shops.length; i++){
+          //console.log(this.currentStreet.shops[i].itemCat);
+          category.push(this.currentStreet.shops[i].itemCat)
+
+        }
+      }
+      return category;
     },
     shopSelected() {
       let shopName = "";

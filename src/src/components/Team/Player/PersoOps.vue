@@ -115,14 +115,14 @@
               <p class="sell" @click="sellfromBought()">Sell</p>
             </div>
           </div>
+
+        </div>
                   <p
           v-if="this.errorsellfromBought !== null"
           style="color: red; text-align: center; font-size: x-small"
         >
           {{ this.errorsellfromBought }}
         </p>
-        </div>
-
       </div>
     </div>
   </div>
@@ -439,12 +439,13 @@ export default {
         this.errorsellfromBought =
           "This is not a valid number id from boughtItems item to desassign. Please try again";
         return;
-      }if(this.idxFromBought <= 0 || this.idxFromBought >= this.currentPlayer.boughtItems.length) {
+      }if(this.idxFromBought <= 0 || this.idxFromBought > this.currentPlayer.boughtItems.length) {
         this.errorsellfromBought=
         "This is not a valid number because the bought items length is : " +
           this.currentPlayer.boughtItems.length+
           " and you typed " +
           this.idxFromBought;
+          return;
       }
       this.errorsellfromBought = null;
       let item = this.currentPlayer.boughtItems[this.idxFromBought - 1];

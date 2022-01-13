@@ -1,18 +1,14 @@
 <template>
   <div v-if="streetName !== null">
-    <div
-      v-for="(el, i) in shops"
-      :key="i"
-      
-    >
+    <div v-for="(el, i) in shops" :key="i">
       <input
         type="radio"
         :value="i"
         name="shops"
         @change="eventShopSelectorEmmiter($event)"
       />
-      <label>{{ el }}</label
-      ><br />
+      {{el}}<br />
+      
     </div>
   </div>
 </template>
@@ -23,11 +19,16 @@ export default {
   props: {
     shops: Array,
     streetName: String,
+    shopsCats: Array,
   },
   data: () => {
-    return {};
+    return {
+      str:null,
+    };
   },
-  computed: {},
+  computed: {
+    
+  },
   methods: {
     eventShopSelectorEmmiter(event) {
       let id = event.target.value;
@@ -38,4 +39,7 @@ export default {
 </script>
 
 <style>
+h1{
+  flex-wrap: wrap;
+}
 </style>
