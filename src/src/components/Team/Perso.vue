@@ -10,10 +10,8 @@
       </template>
       <template v-slot:gold="{ gold }">
         <div>
-          <img src="../../assets/Player/coins.png" width="15px" height="15px" />
-          <span style="padding-left: 10px; margin-bottom: 10px">{{
-            gold
-          }}</span>
+          <img src="../../assets/Player/coins.png" style="padding-right: 10px;" width="15px" height="15px" />
+          <input style="padding-left: 10px; margin-bottom: 10px; width:100px" :value="gold"/>
         </div>
       </template>
     </PersoCaracs>
