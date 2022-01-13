@@ -1,17 +1,38 @@
 <template>
-  <div v-if="currentPlayer !== null" >
-    <p>Name : {{ currentPlayer.name }} </p>
-    <p>Level : {{ currentPlayer.level }} </p>
-    <p>Life : {{ currentPlayer.life }} </p>
-    <p>Armor : {{ currentPlayer.armor}} </p>
-    <p>Vitality : {{ currentPlayer.vitality }} </p>
-    <p>Strength : {{ currentPlayer.strength }} </p>
+  <div v-if="currentPlayer !== null">
+    <div style="display: flex; text-align: center">
+      <p>
+        Name :
+        <span style="font-weight: bolder">{{ currentPlayer.name }} </span>
+      </p>
 
-    <div>
-      <label>Gold : </label>
-      <input readonly="readonly" :value="currentPlayer.gold" /><br />
+      <slot name="level" :level="currentPlayer.level"></slot>
     </div>
-    <br/>
+    <p style="font-weight: bolder; padding-left: 50px">Player Stats</p>
+    <div style="display: flex; flex: 8; border">
+      <div style="flex-grow: 0.1">
+        <p>
+          Life : <span style="color: red"> {{ currentPlayer.life }}</span>
+        </p>
+        <p>
+          Armor :<span style="color: gray"> {{ currentPlayer.armor }}</span>
+        </p>
+      </div>
+      <div style="flex-grow: 1">
+        <p>
+          Vitality :
+          <span style="color: orange"> {{ currentPlayer.vitality }}</span>
+        </p>
+        <p>
+          Strength :
+          <span style="color: rgb(0, 158, 243)">
+            {{ currentPlayer.strength }}</span
+          >
+        </p>
+      </div>
+    </div>
+    <slot name="gold" :gold="currentPlayer.gold"></slot>
+    <br />
   </div>
 </template>
 
@@ -19,15 +40,16 @@
 export default {
   name: "PersoCaracs",
   props: {
-    currentPlayer: Object
+    currentPlayer: Object,
   },
-  data:() =>{
-    return{
-      
-    };
-  }
+  data: () => {
+    return {};
+  },
 };
 </script>
 
 <style>
+text {
+  margin: 10px 10 10 10;
+}
 </style>

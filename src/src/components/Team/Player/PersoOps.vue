@@ -2,9 +2,9 @@
   <div v-if="currentPlayer !== null">
     <div style="flex-direction: column; display: flex; flex: 8 auto">
       <div>
-        <h2 style="align-items: center; text-align: center">
+        <h3 style="align-items: center; text-align: center">
           Player Operations
-        </h2>
+        </h3>
       </div>
       <div>
         <div>
@@ -45,20 +45,38 @@
         </div>
       </div>
       <div v-if="currentShop !== null" class="store-operations">
-        <h2 style="align-items: center; text-align: center">
+        <h3 style="align-items: center; text-align: center">
           Store Operations
-        </h2>
-        <div>
+        </h3>
+        <div style="display: flex">
           <label for="items_to__buy">Number of item you want to buy: </label>
-          <input id="items_to_buy" type="text" v-model="idxItemBuy" />
-          <button @click="buy">Buy</button><br /><br />
-          <p
-            v-if="this.errorbuy !== null"
-            style="color: red; text-align: center; font-size: x-small"
-          >
-            {{ this.errorbuy }}
-          </p>
+           <input id="items_to_buy" type="text" v-model="idxItemBuy" style="height: 20px;"/>
+          <img
+            @click="buy"
+            src="../../../assets/Player/buy.png"
+            width="40px"
+            height="40px"
+            style="
+              display: flex;
+              flex-direction: column;
+              flex: 8;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+              align-content: center;
+              flex-grow:0;
+              height: 30px;
+            "
+          />
         </div>
+        <p
+          v-if="this.errorbuy !== null"
+          style="color: red; text-align: center; font-size: x-small"
+        >
+          {{ this.errorbuy }}
+        </p>
+        <br /><br />
+
         <div>
           <label>Object to order: </label>
           <input type="text" v-model="idxItemOrder" />
@@ -79,16 +97,32 @@
             <label>Slot to sell: </label>
             <input type="text" value="1" v-model="idxSlotSell" />
             <div style="padding-top: 10px">
-              <button @click="sell()" class="btn">Sell</button>
+              <p class="sell" @click="sell()">Sell</p>
             </div>
-            <p
-              v-if="this.errorsell !== null"
-              style="color: red; text-align: center; font-size: x-small"
-            >
-              {{ this.errorsell }}
-            </p>
           </div>
         </div>
+        <p
+          v-if="this.errorsell !== null"
+          style="color: red; text-align: center; font-size: x-small"
+        >
+          {{ this.errorsell }}
+        </p>
+        <div style="display: flex">
+          <div>
+            <label>Item to sell from bought items: </label>
+            <input type="text" value="1" v-model="idxFromBought" />
+            <div style="padding-top: 10px">
+              <p class="sell" @click="sellfromBought()">Sell</p>
+            </div>
+          </div>
+                  <p
+          v-if="this.errorsellfromBought !== null"
+          style="color: red; text-align: center; font-size: x-small"
+        >
+          {{ this.errorsellfromBought }}
+        </p>
+        </div>
+
       </div>
     </div>
   </div>
@@ -112,6 +146,7 @@ export default {
       idxSlotSell: 1, // la valeur du champ de saisie "index slot" pour vendre un item
       idxSlotDeassign: 1,
       idxItemDesassign: 1, // la valeur du champ de saisie "index to desassign" pour désequiper le item
+      idxFromBought: 1,
       itemLimits,
       error: null,
       error2: null,
@@ -120,6 +155,7 @@ export default {
       errordeassing2: null,
       errorsell: null,
       errororder: null,
+      errorsellfromBought : null,
     };
   },
   methods: {
@@ -182,7 +218,33 @@ export default {
       }
       this.currentPlayer.boughtItems.splice(this.idxItemBought - 1, 1);
       this.currentPlayer.slots[this.idxSlotAssign - 1].items.push(item);
-      return "";
+      let number = "";
+      for (let i = 2; i < item.effect.length; i++) {
+        number += item.effect[i];
+      }
+
+      //Effects
+      if (item.effect[0] === "S") {
+        if (item.effect[1] === "+") {
+          this.currentPlayer.strength += parseInt(number);
+        } else {
+          this.currentPlayer.strength -= parseInt(number);
+        }
+      } else if (item.effect[0] === "L") {
+        if (item.effect[1] === "+") {
+          this.currentPlayer.vitality += parseInt(number);
+        } else {
+          this.currentPlayer.vitality -= parseInt(number);
+        }
+      } else if (item.effect[0] === "A") {
+        if (item.effect[1] === "+") {
+          this.currentPlayer.armor += parseInt(number);
+        } else {
+          this.currentPlayer.armor -= parseInt(number);
+        }
+      }
+
+      return;
     },
     buy() {
       if (
@@ -202,18 +264,17 @@ export default {
       return "";
     },
     order() {
-      if (
-        isNaN(this.idxItemOrder)
-      ) {
+      if (isNaN(this.idxItemOrder)) {
         this.errororder =
           "This is not a valid number or id from item to order. Please try again";
         return;
-      }
-      else if (this.currentShop.itemOrder.length < this.idxItemOrder ){
-        this.errororder = "There's no items with that id [ "+this.idxItemOrder+" ] to order!";
+      } else if (this.currentShop.itemOrder.length < this.idxItemOrder) {
+        this.errororder =
+          "There's no items with that id [ " +
+          this.idxItemOrder +
+          " ] to order!";
         return;
-      }
-      else if (this.currentShop.itemOrder.length === 0) {
+      } else if (this.currentShop.itemOrder.length === 0) {
         this.errororder = "There's no items to order!";
         return;
       }
@@ -228,21 +289,18 @@ export default {
         this.errorsell =
           "This is not a valid number or id from item to sell. Please try again";
         return;
-      }
-      else if (isNaN(this.idxSlotSell)) {
+      } else if (isNaN(this.idxSlotSell)) {
         this.errorsell =
           "This is not a valid number or id from slot to sell. Please try again";
         return;
-      }
-      else if (this.currentPlayer.slots.length < this.idxSlotSell - 1) {
+      } else if (this.currentPlayer.slots.length < this.idxSlotSell - 1) {
         this.errorsell =
           "This is not a valid number [ " +
           this.idxSlotSell +
           " ] is out of range because the slot length = " +
           this.currentPlayer.slots.length;
         return;
-      }
-      else if (
+      } else if (
         this.currentPlayer.slots[this.idxSlotSell - 1].items.length <=
         this.idxItemSell - 1
       ) {
@@ -250,7 +308,10 @@ export default {
           "This is not a valid number [ " +
           this.idxItemSell +
           " ] is out of range because the items length = " +
-          this.currentPlayer.slots[this.idxSlotSell - 1].items.length +" in the slot [ " + this.idxSlotSell + " ]"; 
+          this.currentPlayer.slots[this.idxSlotSell - 1].items.length +
+          " in the slot [ " +
+          this.idxSlotSell +
+          " ]";
         return;
       }
       this.errorsell = null;
@@ -264,6 +325,31 @@ export default {
       );
       this.currentShop.itemStock.push(item);
       this.currentPlayer.gold += item.price;
+      //Effects
+      let number = "";
+      for (let i = 2; i < item.effect.length; i++) {
+        number += item.effect[i];
+      }
+
+      if (item.effect[0] === "S") {
+        if (item.effect[1] === "+") {
+          this.currentPlayer.strength -= parseInt(number);
+        } else {
+          this.currentPlayer.strength += parseInt(number);
+        }
+      } else if (item.effect[0] === "L") {
+        if (item.effect[1] === "+") {
+          this.currentPlayer.vitality -= parseInt(number);
+        } else {
+          this.currentPlayer.vitality += parseInt(number);
+        }
+      } else if (item.effect[0] === "A") {
+        if (item.effect[1] === "+") {
+          this.currentPlayer.armor -= parseInt(number);
+        } else {
+          this.currentPlayer.armor += parseInt(number);
+        }
+      }
     },
     desassign() {
       if (isNaN(this.idxItemDesassign)) {
@@ -274,19 +360,32 @@ export default {
         this.errordeassing2 =
           "This is not a valid number or id from Slots Items. Please try again";
         return;
-      } else if (
-        this.idxSlotDeassign <= 0 ||
-        this.idxSlotAssign > this.currentPlayer.slots.length
-      ) {
+      } else if (this.idxSlotDeassign <= 0) {
         this.errordeassing =
           "This is not a valid number because the slot length = " +
           this.currentPlayer.slots.length +
           " and you typed " +
           this.idxSlotAssign;
         return;
+      } else if (this.idxSlotDeassign > this.currentPlayer.slots.length) {
+        this.errordeassing =
+          "This is not a valid number because the slot length = " +
+          this.currentPlayer.slots.length +
+          " and you typed " +
+          this.idxSlotAssign;
+        return;
+      } else if (this.idxItemDesassign <= 0) {
+        this.errordeassing =
+          "This is not a valid number because the slot " +
+          this.idxSlotDeassign +
+          " has  = " +
+          this.currentPlayer.slots[this.idxSlotDeassign - 1].items.length +
+          " items and you typed " +
+          this.idxItemDesassign;
+        return;
       } else if (
-        this.idxItemDesassign <= 0 ||
-        this.idxItemDesassign > this.currentPlayer.slots[this.idxSlotAssign-1].items.length
+        this.idxItemDesassign >
+        this.currentPlayer.slots[this.idxSlotDeassign - 1].items.length
       ) {
         this.errordeassing =
           "This is not a valid number because the slot " +
@@ -309,8 +408,52 @@ export default {
         );
         this.currentPlayer.boughtItems.push(item);
       }
+      //Effects
+      let number = "";
+      for (let i = 2; i < item.effect.length; i++) {
+        number += item.effect[i];
+      }
+
+      if (item.effect[0] === "S") {
+        if (item.effect[1] === "+") {
+          this.currentPlayer.strength -= parseInt(number);
+        } else {
+          this.currentPlayer.strength += parseInt(number);
+        }
+      } else if (item.effect[0] === "L") {
+        if (item.effect[1] === "+") {
+          this.currentPlayer.vitality -= parseInt(number);
+        } else {
+          this.currentPlayer.vitality += parseInt(number);
+        }
+      } else if (item.effect[0] === "A") {
+        if (item.effect[1] === "+") {
+          this.currentPlayer.armor -= parseInt(number);
+        } else {
+          this.currentPlayer.armor += parseInt(number);
+        }
+      }
+    },
+    sellfromBought (){
+      if(isNaN(this.idxFromBought)) {
+        this.errorsellfromBought =
+          "This is not a valid number id from boughtItems item to desassign. Please try again";
+        return;
+      }if(this.idxFromBought <= 0 || this.idxFromBought >= this.currentPlayer.boughtItems.length) {
+        this.errorsellfromBought=
+        "This is not a valid number because the bought items length is : " +
+          this.currentPlayer.boughtItems.length+
+          " and you typed " +
+          this.idxFromBought;
+      }
+      this.errorsellfromBought = null;
+      let item = this.currentPlayer.boughtItems[this.idxFromBought - 1];
+      this.currentPlayer.boughtItems.splice(this.idxFromBought - 1,1);
+      this.currentShop.itemStock.push(item);
+      this.currentPlayer.gold += item.price;
+      return
     }
-  }
+  },
 };
 </script>
 
@@ -324,12 +467,22 @@ export default {
 .store-operations {
   padding-top: 10px;
 }
-.store-operations > h1,
 input {
   align-items: center;
   text-align: center;
 
   width: 20px;
   text-align: center;
+}
+.sell {
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: color 0.3s ease-in-out;
+  color: green;
+}
+.sell:hover {
+  color: rgb(0, 255, 136);
+  
 }
 </style>

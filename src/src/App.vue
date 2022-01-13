@@ -1,5 +1,8 @@
 <template >
   <div>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <div style="display: flex">
       <div style="flex: 7 7">
         <Team
@@ -52,6 +55,8 @@ export default {
     },
 
     selectedTown(id) {
+      this.currentShop =null;
+      this.currentStreet = null;
       this.currentTown = towns[id];
     },
     selectedStreet(id) {
@@ -69,4 +74,38 @@ export default {
 };
 </script>
 <style>
+body{ 
+  color: white;
+  font-family: 'Poppins', sans-serif;
+background:rgba(15,15,15,1);
+}
+input {
+  border: 2px solid red;
+  border-radius: 4px;
+}
+input[readonly] {
+  width: 500px;
+}
+
+button{
+    background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 1px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+table {
+  border-collapse: collapse;
+}
+tr{
+  padding: 10px 10px 10px 10px;
+}
+td{
+  padding: 10px 10px 10px 10px;
+}
 </style>

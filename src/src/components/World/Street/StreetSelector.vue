@@ -3,12 +3,7 @@
         <div style="display: flex">
       <div style="width: 50%">
         <div v-for="(el, i) in streets" :key="i">
-          <input
-            type="radio"
-            :value="i"
-            name="streets"
-            @click="eventStreetSelectorEmmiter($event)"
-          />
+          <input type="checkbox" :value="i" name="streets" @click="eventStreetSelectorEmmiter($event) "> 
           <label>{{ el }}</label
           ><br />
         </div>
@@ -26,13 +21,14 @@ export default {
   },
   data: () => {
     return {
+      checkboxes: [false, false, false]
     };
   },
   computed: {},
   mounted:()=> {
   },
   methods: {
-    eventStreetSelectorEmmiter(event) {
+    eventStreetSelectorEmmiter(event) {    
       let id = event.target.value;
       this.$emit("change:selectedStreet",id); 
     },

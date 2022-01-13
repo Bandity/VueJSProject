@@ -5,18 +5,18 @@
       :townsNames="townsNames"
       @change:selectedTown="eventTownEmmiter"
     />
-    <h1 v-if="this.townName !== null" style="text-align: center">
+    <h3 v-if="this.townName !== null" style="text-align: center">
       {{ this.townName }}
-    </h1>
+    </h3>
     <br />
     <StreetSelector
       :streets="streets"
       :townName="townName"
       @change:selectedStreet="eventStreetSelectorEmmiter"
     />
-    <h1 v-if="this.currentStreet !== null" style="text-align: center">
+    <h3 v-if="this.currentStreet !== null" style="text-align: center">
       {{ this.currentStreet.name }}
-    </h1>
+    </h3>
     <br />
     <ShopSelector
       :shops="shop"
@@ -25,12 +25,12 @@
     />
     <br />
     <Shop :currentShop="currentShop">
-      <h1
+      <h3
         slot-scope="{ shopName }"
         style="display: flex; align-items: center; justify-content: center"
       >
         {{ shopName }}
-      </h1>
+      </h3>
     </Shop>
     <br />
   </div>

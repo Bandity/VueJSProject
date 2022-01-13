@@ -1,8 +1,24 @@
 <template>
   <div>
-    <PersoCaracs :currentPlayer="currentPlayer"/>
-    <PersoSlots :currentPlayer="currentPlayer"/>
-    <PersoOps :currentPlayer="currentPlayer" :currentShop="currentShop"/>
+    <PersoCaracs :currentPlayer="currentPlayer">
+      <template v-slot:level="{ level }">
+        <div style="display: flex">
+          <p style="padding-left: 10px">
+            Level : <span style="color: green">{{ level }}</span>
+          </p>
+        </div>
+      </template>
+      <template v-slot:gold="{ gold }">
+        <div>
+          <img src="../../assets/Player/coins.png" width="15px" height="15px" />
+          <span style="padding-left: 10px; margin-bottom: 10px">{{
+            gold
+          }}</span>
+        </div>
+      </template>
+    </PersoCaracs>
+    <PersoSlots :currentPlayer="currentPlayer" />
+    <PersoOps :currentPlayer="currentPlayer" :currentShop="currentShop" />
   </div>
 </template>
 
@@ -12,28 +28,23 @@ import PersoOps from "./Player/PersoOps.vue";
 import PersoSlots from "./Player/PersoSlots.vue";
 
 export default {
-
   name: "Perso",
-  components:{
+  components: {
     PersoCaracs,
     PersoOps,
-    PersoSlots
+    PersoSlots,
   },
   props: {
     currentPlayer: Object,
-    currentShop: Object
+    currentShop: Object,
   },
   data: () => {
-    return {
-    };
+    return {};
   },
   computed: {},
-  methods: {
-    
-  },
-}
+  methods: {},
+};
 </script>
 
 <style>
-
 </style>
